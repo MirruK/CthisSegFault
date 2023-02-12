@@ -1,18 +1,19 @@
-OBJECTS = test_list.o linked_list.o
+TARGETFILE = $(cmd_args)
+OBJECTS = test_$(TARGETFILE).o $(TARGETFILE).o
 FLAGS = -g -Wall
-NAME = test_list
+NAME = test_$(TARGETFILE)
 
 build: $(OBJECTS)
 	gcc $(OBJECTS) -o $(NAME)
 
-test_list.o: src/test_list.c
-	gcc $(FLAGS) -c src/test_list.c
+test_$(TARGETFILE).o: src/test_$(TARGETFILE).c
+	gcc $(FLAGS) -c src/test_$(TARGETFILE).c
 
-linked_list.o: src/linked_list.c
-	gcc $(FLAGS) -c src/linked_list.c
+$(TARGETFILE).o: src/$(TARGETFILE).c
+	gcc $(FLAGS) -c src/$(TARGETFILE).c
 
 clean:
-	rm *.o test_list
+	rm *.o test_$(TARGETFILE)
 
 run:
 	make build -B && ./$(NAME)
